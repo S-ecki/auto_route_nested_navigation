@@ -42,28 +42,29 @@ class AppRouter extends _i4.RootStackRouter {
         child: const _i2.EmptyRouterPage(),
       );
     },
-    RootScreenA.name: (routeData) {
+    RootRouteA.name: (routeData) {
       return _i4.MaterialPageX<void>(
         routeData: routeData,
         child: const _i3.RootScreenA(),
       );
     },
-    DetailsScreenA.name: (routeData) {
-      return _i4.MaterialPageX<void>(
+    DetailsRoute.name: (routeData) {
+      final args = routeData.argsAs<DetailsRouteArgs>();
+      return _i4.CustomPage<void>(
         routeData: routeData,
-        child: const _i3.DetailsScreenA(),
+        child: _i3.DetailsScreen(
+          label: args.label,
+          key: args.key,
+        ),
+        transitionsBuilder: _i4.TransitionsBuilders.noTransition,
+        opaque: true,
+        barrierDismissible: false,
       );
     },
-    RootScreenB.name: (routeData) {
+    RootRouteB.name: (routeData) {
       return _i4.MaterialPageX<void>(
         routeData: routeData,
         child: const _i3.RootScreenB(),
-      );
-    },
-    DetailsScreenB.name: (routeData) {
-      return _i4.MaterialPageX<void>(
-        routeData: routeData,
-        child: const _i3.DetailsScreenB(),
       );
     },
   };
@@ -80,12 +81,12 @@ class AppRouter extends _i4.RootStackRouter {
               parent: TabScaffoldRoute.name,
               children: [
                 _i4.RouteConfig(
-                  RootScreenA.name,
+                  RootRouteA.name,
                   path: '',
                   parent: ARouter.name,
                 ),
                 _i4.RouteConfig(
-                  DetailsScreenA.name,
+                  DetailsRoute.name,
                   path: 'details',
                   parent: ARouter.name,
                 ),
@@ -97,12 +98,12 @@ class AppRouter extends _i4.RootStackRouter {
               parent: TabScaffoldRoute.name,
               children: [
                 _i4.RouteConfig(
-                  RootScreenB.name,
+                  RootRouteB.name,
                   path: '',
                   parent: BRouter.name,
                 ),
                 _i4.RouteConfig(
-                  DetailsScreenB.name,
+                  DetailsRoute.name,
                   path: 'details',
                   parent: BRouter.name,
                 ),
@@ -154,48 +155,58 @@ class BRouter extends _i4.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i3.RootScreenA]
-class RootScreenA extends _i4.PageRouteInfo<void> {
-  const RootScreenA()
+class RootRouteA extends _i4.PageRouteInfo<void> {
+  const RootRouteA()
       : super(
-          RootScreenA.name,
+          RootRouteA.name,
           path: '',
         );
 
-  static const String name = 'RootScreenA';
+  static const String name = 'RootRouteA';
 }
 
 /// generated route for
-/// [_i3.DetailsScreenA]
-class DetailsScreenA extends _i4.PageRouteInfo<void> {
-  const DetailsScreenA()
-      : super(
-          DetailsScreenA.name,
+/// [_i3.DetailsScreen]
+class DetailsRoute extends _i4.PageRouteInfo<DetailsRouteArgs> {
+  DetailsRoute({
+    required String label,
+    _i5.Key? key,
+  }) : super(
+          DetailsRoute.name,
           path: 'details',
+          args: DetailsRouteArgs(
+            label: label,
+            key: key,
+          ),
         );
 
-  static const String name = 'DetailsScreenA';
+  static const String name = 'DetailsRoute';
+}
+
+class DetailsRouteArgs {
+  const DetailsRouteArgs({
+    required this.label,
+    this.key,
+  });
+
+  final String label;
+
+  final _i5.Key? key;
+
+  @override
+  String toString() {
+    return 'DetailsRouteArgs{label: $label, key: $key}';
+  }
 }
 
 /// generated route for
 /// [_i3.RootScreenB]
-class RootScreenB extends _i4.PageRouteInfo<void> {
-  const RootScreenB()
+class RootRouteB extends _i4.PageRouteInfo<void> {
+  const RootRouteB()
       : super(
-          RootScreenB.name,
+          RootRouteB.name,
           path: '',
         );
 
-  static const String name = 'RootScreenB';
-}
-
-/// generated route for
-/// [_i3.DetailsScreenB]
-class DetailsScreenB extends _i4.PageRouteInfo<void> {
-  const DetailsScreenB()
-      : super(
-          DetailsScreenB.name,
-          path: 'details',
-        );
-
-  static const String name = 'DetailsScreenB';
+  static const String name = 'RootRouteB';
 }

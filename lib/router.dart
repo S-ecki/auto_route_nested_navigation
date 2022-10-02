@@ -4,7 +4,7 @@ import 'package:auto_route_nested_navigation/screens.dart';
 import 'package:auto_route_nested_navigation/tab_scaffold_page.dart';
 
 @MaterialAutoRouter(
-  replaceInRouteName: 'Page,Route',
+  replaceInRouteName: 'Page|Screen,Route',
   routes: <AutoRoute>[
     AutoRoute<void>(
       path: '/',
@@ -15,13 +15,11 @@ import 'package:auto_route_nested_navigation/tab_scaffold_page.dart';
           name: 'ARouter',
           page: EmptyRouterPage,
           children: [
-            AutoRoute<void>(
-              page: RootScreenA,
-              path: '',
-            ),
-            AutoRoute<void>(
-              page: DetailsScreenA,
+            AutoRoute<void>(page: RootScreenA, path: ''),
+            CustomRoute<void>(
+              page: DetailsScreen,
               path: 'details',
+              transitionsBuilder: TransitionsBuilders.noTransition,
             ),
           ],
         ),
@@ -30,13 +28,11 @@ import 'package:auto_route_nested_navigation/tab_scaffold_page.dart';
           name: 'BRouter',
           page: EmptyRouterPage,
           children: [
-            AutoRoute<void>(
-              page: RootScreenB,
-              path: '',
-            ),
-            AutoRoute<void>(
-              page: DetailsScreenB,
+            AutoRoute<void>(page: RootScreenB, path: ''),
+            CustomRoute<void>(
+              page: DetailsScreen,
               path: 'details',
+              transitionsBuilder: TransitionsBuilders.noTransition,
             ),
           ],
         ),
@@ -45,49 +41,3 @@ import 'package:auto_route_nested_navigation/tab_scaffold_page.dart';
   ],
 )
 class $AppRouter {}
-
-
-
-    // final goRouter = GoRouter(
-    //   initialLocation: '/a',
-    //   navigatorKey: _rootNavigatorKey,
-    //   debugLogDiagnostics: true,
-    //   routes: [
-    //     ShellRoute(
-    //       navigatorKey: _shellNavigatorKey,
-    //       builder: (context, state, child) {
-    //         return ScaffoldWithBottomNavBar(tabs: tabs, child: child);
-    //       },
-    //       routes: [
-    //         // Products
-    //         GoRoute(
-    //           path: '/a',
-    //           pageBuilder: (context, state) => NoTransitionPage(
-    //             key: state.pageKey,
-    //             child: const RootScreen(label: 'A', detailsPath: '/a/details'),
-    //           ),
-    //           routes: [
-    //             GoRoute(
-    //               path: 'details',
-    //               builder: (context, state) => const DetailsScreen(label: 'A'),
-    //             ),
-    //           ],
-    //         ),
-    //         // Shopping Cart
-    //         GoRoute(
-    //           path: '/b',
-    //           pageBuilder: (context, state) => NoTransitionPage(
-    //             key: state.pageKey,
-    //             child: const RootScreen(label: 'B', detailsPath: '/b/details'),
-    //           ),
-    //           routes: [
-    //             GoRoute(
-    //               path: 'details',
-    //               builder: (context, state) => const DetailsScreen(label: 'B'),
-    //             ),
-    //           ],
-    //         ),
-    //       ],
-    //     ),
-    //   ],
-    // );

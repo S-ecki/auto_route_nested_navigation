@@ -7,6 +7,17 @@ class TabScaffoldPage extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
+  static const navBarItems = [
+    BottomNavigationBarItem(
+      icon: Icon(Icons.home),
+      label: 'Section A',
+    ),
+    BottomNavigationBarItem(
+      icon: Icon(Icons.settings),
+      label: 'Section B',
+    ),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return AutoTabsScaffold(
@@ -14,20 +25,11 @@ class TabScaffoldPage extends StatelessWidget {
         ARouter(),
         BRouter(),
       ],
-      bottomNavigationBuilder: (context, tabsRouter) {
+      bottomNavigationBuilder: (_, tabsRouter) {
         return BottomNavigationBar(
           currentIndex: tabsRouter.activeIndex,
           onTap: tabsRouter.setActiveIndex,
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Section A',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
-              label: 'Section B',
-            ),
-          ],
+          items: navBarItems,
         );
       },
     );

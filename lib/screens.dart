@@ -1,56 +1,17 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:auto_route_nested_navigation/router.gr.dart';
 import 'package:flutter/material.dart';
-
-class RootScreenA extends StatelessWidget {
-  const RootScreenA({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const RootScreen(label: 'a', detailsPath: 'details');
-  }
-}
-
-class RootScreenB extends StatelessWidget {
-  const RootScreenB({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const RootScreen(label: 'b', detailsPath: 'details');
-  }
-}
-
-class DetailsScreenA extends StatelessWidget {
-  const DetailsScreenA({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const DetailsScreen(label: 'a');
-  }
-}
-
-class DetailsScreenB extends StatelessWidget {
-  const DetailsScreenB({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const DetailsScreen(label: 'b');
-  }
-}
 
 /// Widget for the root/initial pages in the bottom navigation bar.
 class RootScreen extends StatelessWidget {
   /// Creates a RootScreen
   const RootScreen({
     required this.label,
-    required this.detailsPath,
     Key? key,
   }) : super(key: key);
 
   /// The label
   final String label;
-
-  /// The path to the detail page
-  final String detailsPath;
 
   @override
   Widget build(BuildContext context) {
@@ -66,15 +27,35 @@ class RootScreen extends StatelessWidget {
               'Screen $label',
               style: Theme.of(context).textTheme.titleLarge,
             ),
-            const Padding(padding: EdgeInsets.all(4)),
+            const SizedBox(height: 8),
             TextButton(
-              onPressed: () => context.router.pushNamed(detailsPath),
+              onPressed: () => context.router.push(DetailsRoute(label: label)),
               child: const Text('View details'),
             ),
           ],
         ),
       ),
     );
+  }
+}
+
+/// Widget to encapsulate label argument of [RootScreen]
+class RootScreenA extends StatelessWidget {
+  const RootScreenA({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const RootScreen(label: 'a');
+  }
+}
+
+/// Widget to encapsulate label argument of [RootScreen]
+class RootScreenB extends StatelessWidget {
+  const RootScreenB({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const RootScreen(label: 'b');
   }
 }
 
@@ -111,7 +92,7 @@ class DetailsScreenState extends State<DetailsScreen> {
               'Details for ${widget.label} - Counter: $_counter',
               style: Theme.of(context).textTheme.titleLarge,
             ),
-            const Padding(padding: EdgeInsets.all(4)),
+            const SizedBox(height: 8),
             TextButton(
               onPressed: () {
                 setState(() {
